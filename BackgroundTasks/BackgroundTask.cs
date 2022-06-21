@@ -1,33 +1,69 @@
 ﻿namespace BackgroundTasks;
 
 /// <summary>
-/// Effectue une tâche régulière <br/><br/>
-/// La version Legacy ne respecte pas le temps entre 2 exécutiuons de la tâche, car un appel à une opération asynchrone va la décaler <br/>
-/// La version utilisant un PeriodicTimer respecte ce temps entre les exécutions et n'est pas impactée par cet appel à l'opération asynchrone
+/// Performs a repeating task <br/><br/>
+/// The Legacy version does not respect the time between 2 executions of the task, because a call to an asynchronous operation will shift it <br/>
+/// The version using a PeriodicTimer respects the time between 2 executions and is not impacted by a call to the asynchronous operation
 /// </summary>
 internal abstract class BackgroundTask
 {
-    /// <summary>
-    /// Démarre la tâche répétée
-    /// </summary>
-    public abstract void Start();
+    protected readonly CancellationTokenSource cancellationToken;
+    private readonly Random random;
+    protected readonly TimeSpan taskTimeInterval;
+    private Task timerTask;
+
+    public BackgroundTask(TimeSpan taskTimeInterval)
+    {
+        this.cancellationToken = new CancellationTokenSource();
+        this.random = new Random();
+        this.taskTimeInterval = taskTimeInterval;
+    }
 
     /// <summary>
-    /// Boucle en effectuant une opération asynchrone <br/>
-    /// Calcule et affiche le temps entre deux exécutions de tâche
+    /// Starts the repeating task
+    /// </summary>
+    public void Start()
+    {
+        this.timerTask = this.StartAsyncTask();
+
+        Console.WriteLine("Task started");
+    }
+
+    /// <summary>
+    /// Loops and performs an asynchronous operation <br/>
+    /// Calculates and displays the time between two task executions
     /// </summary>
     /// <returns></returns>
     protected abstract Task StartAsyncTask();
 
     /// <summary>
-    /// Simule un appel asynchrone à une base de données
+    /// Emulate a call to a database <br/>
+    /// Operation's time is random
     /// </summary>
     /// <returns></returns>
-    protected abstract Task CallDatabase();
+    protected async Task CallDatabase()
+    {
+        int databaseTaskTimeMs = this.random.Next(0, (int)this.taskTimeInterval.TotalMilliseconds);
+        await Task.Delay(databaseTaskTimeMs);
+
+        Console.WriteLine($"Database operation done after {databaseTaskTimeMs} ms");
+    }
 
     /// <summary>
-    /// Arrête proprement la tâche
+    /// Properly stops the repeating task
     /// </summary>
     /// <returns></returns>
-    public abstract Task Stop();
+    public async Task Stop()
+    {
+        if (this.timerTask == null)
+        {
+            return;
+        }
+
+        this.cancellationToken.Cancel();
+        await this.timerTask;
+        this.cancellationToken.Dispose();
+
+        Console.WriteLine("Task stopped");
+    }
 }
