@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackgroundTasks", "BackgroundTasks\BackgroundTasks.csproj", "{E5046F0E-4D83-47FE-9172-A45897FAD89D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackgroundTasks", "BackgroundTasks\BackgroundTasks.csproj", "{E5046F0E-4D83-47FE-9172-A45897FAD89D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashIdBasedApi", "HashIdBasedApi\HashIdBasedApi.csproj", "{9905B406-B663-4743-83D8-220B5CBA1E8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E5046F0E-4D83-47FE-9172-A45897FAD89D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5046F0E-4D83-47FE-9172-A45897FAD89D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5046F0E-4D83-47FE-9172-A45897FAD89D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9905B406-B663-4743-83D8-220B5CBA1E8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9905B406-B663-4743-83D8-220B5CBA1E8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9905B406-B663-4743-83D8-220B5CBA1E8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9905B406-B663-4743-83D8-220B5CBA1E8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
