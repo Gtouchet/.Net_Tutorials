@@ -4,7 +4,7 @@
  * Change to false to use the PeriodicTimer version
  * You should always use the PeriodicTimer version since it is more reliable than the Legacy version
  */
-bool legacy = false;
+bool legacy = true;
 
 
 BackgroundTask task = legacy ?
